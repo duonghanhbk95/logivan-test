@@ -1,11 +1,11 @@
 export const ERROR_MESSAGE = {
   NEW: 'The Driver ID already exist. Please try agian.',
   REMOVE: 'The Diver ID is not exist. Please try again.',
-  EDIT: '',
+  EDIT: 'The driver has been not changed.',
 }
 
 export const SUCCESS_MESSAGE = {
   NEW: 'Add driver success !',
-  REMOVE: 'The diver has been removed !',
-  EDIT: ''
+  REMOVE: 'The driver has been removed !',
+  EDIT: 'The driver has been updated !'
 }

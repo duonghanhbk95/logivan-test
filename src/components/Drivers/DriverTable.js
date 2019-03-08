@@ -9,7 +9,7 @@ import DriverBuilder from './DriverBuilder'
 import DriverItem from '../Drivers/DriverItem'
 import Notification from '../Shared/Notification'
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../../constants'
-import { acAddDriver, acRemoveDriver } from '../../actions';
+import { acAddDriver, acRemoveDriver, acUpdateDriverInfo } from '../../actions';
 const styles = {
   textAlign: 'center',
   magrin: '40px'
@@ -32,7 +32,7 @@ class DriverTable extends Component {
 
   handleSubmit = () => {
     const { mode, driver } = this.state
-    const { drivers, addDriver, removeDiver } = this.props
+    const { drivers, addDriver, removeDiver, updateDriverInfo } = this.props
     switch (mode) {
       case 'New':
         let isExisted = drivers.some(item => item.driverId === driver.driverId)
@@ -57,8 +57,15 @@ class DriverTable extends Component {
         }
         break
       case 'Edit':
-        let successMessage = SUCCESS_MESSAGE.EDIT
-        
+        let isNotChanged = drivers.some(item => JSON.stringify(item) === JSON.stringify(driver))
+        if (isNotChanged) {
+          let errorMessage = ERROR_MESSAGE.EDIT
+          this.setState({ open: false, errorMessage, successMessage: '' })
+        } else {
+          let successMessage = SUCCESS_MESSAGE.EDIT
+          updateDriverInfo(driver)
+          this.setState({ open: false, errorMessage: '', successMessage })
+        }
         break
       default:
         break
@@ -144,6 +151,7 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   addDriver: (driver) => dispatch(acAddDriver(driver)),
-  removeDiver: (driverId) => dispatch(acRemoveDriver(driverId))
+  removeDiver: (driverId) => dispatch(acRemoveDriver(driverId)),
+  updateDriverInfo: (driver) => dispatch(acUpdateDriverInfo(driver))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(DriverTable);

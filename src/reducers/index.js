@@ -30,6 +30,15 @@ const rdDriver = (state = defaultState, action) => {
     case REMOVE_DRIVER: 
       let drivers = state.drivers.filter(item => item.driverId !== action.driverId)
       return { ...state, drivers}
+    case UPDATE_DRIVER_INFO:
+      let index = state.drivers.findIndex(item => item.driverId === action.driver.driverId)
+      return {
+        ...state, drivers: [
+          ...state.drivers.slice(0, index),
+          {...state.drivers[index], name: action.driver.name, address: action.driver.address},
+          ...state.drivers.slice(index + 1)
+        ]
+      }
     default:
       return state
   }
