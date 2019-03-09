@@ -23,7 +23,7 @@ Magic command to install all dependencies and start development
 ```bash
 $ yarn install && yarn dev
 ```
-We should install electron before install other modules, for some reason, we may NOT install electron along with others. **Please note 
+We should install electron before install other modules, for some reason, we may NOT install electron along with others.
 
 ## Application Structure
 
